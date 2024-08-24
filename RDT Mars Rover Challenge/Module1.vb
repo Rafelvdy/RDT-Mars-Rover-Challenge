@@ -18,6 +18,8 @@
         Console.WriteLine("Press enter to generate grid....")
         Console.ReadLine()
 
+        myPlateau.SetCell(myRobot.GetX(), myRobot.GetY(), "|R|")
+
 
         While run = True
             ' Display the grid
@@ -31,10 +33,7 @@
             Console.Write(": ")
             choice = Console.ReadLine()
 
-            If choice = " " Then
-                Console.Write("Please enter your choice.")
-
-            ElseIf choice = 1 Then
+            If choice = 1 Then
                 Dim myMissionControl As New Mission_Control(myPlateau)
                 Console.WriteLine("Here are the controls:")
                 Console.WriteLine("M - Move foward in the direction faced")

@@ -46,20 +46,15 @@
     Public Sub InitialiseGrid()
         For i As Integer = 0 To _ycord
             For j As Integer = 0 To _xcord
-                If i = _ycord And j = _xcord Then
-                    grid(i, j) = "|R|"
-                Else
-                    grid(i, j) = "| |" ' Default value for each cell
-                End If
-
+                grid(i, j) = "| |" ' Default value for each cell
             Next
         Next
     End Sub
 
     ' Method to set a specific cell in the grid
-    Public Sub SetCell(x As Integer, y As Integer, value As String)
-        If x >= 0 And x <= _xcord And y >= 0 And y <= _ycord Then
-            grid(y, x) = value
+    Public Sub SetCell(ByVal xcord As Integer, ByVal ycord As Integer, value As String)
+        If xcord >= 0 And ycord >= 0 And xcord <= _xcord And ycord <= _ycord Then
+            grid(ycord, xcord) = value
         Else
             Console.WriteLine("Invalid coordinates!")
         End If
@@ -67,7 +62,16 @@
 
     ' Method to display the grid in the console
     Public Sub DisplayGrid()
-        For i As Integer = 0 To _ycord
+        ' Display the X coordinates along the top
+        Console.Write("   ") ' Offset for Y coordinate column
+        For j As Integer = 0 To _xcord
+            Console.Write(j.ToString("00") & " ")
+        Next
+        Console.WriteLine() ' Move to the next line after X coordinates
+
+        For i As Integer = _ycord To 0 Step -1
+            ' Display the Y coordinate along the left
+            Console.Write(i.ToString("00") & " ")
             For j As Integer = 0 To _xcord
                 Console.Write(grid(i, j))
             Next
