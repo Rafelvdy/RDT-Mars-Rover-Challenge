@@ -3,6 +3,7 @@
     Protected _RXcord As Integer
     Protected _RYcord As Integer
     Protected _direction As Integer
+    Private _tempdirection As String
     Private _isFirstMove As Boolean = True ' Flag to check first move
     Dim directionDictionary As New Dictionary(Of Integer, Char)
 
@@ -14,6 +15,23 @@
         directionDictionary.Add(1, "E")
         directionDictionary.Add(2, "S")
         directionDictionary.Add(3, "W")
+    End Sub
+
+    Public Property direction As String
+        Set(value As String)
+            _tempdirection = value
+        End Set
+        Get
+            Return _tempdirection
+        End Get
+    End Property
+
+    Public Sub dictionaryConverter()
+        For Each key As Integer In directionDictionary.Keys
+            If directionDictionary(key) = _tempdirection Then
+                _direction = key
+            End If
+        Next
     End Sub
 
     Public Sub turnRight()
@@ -30,11 +48,11 @@
         If _direction = 0 Then
             _RYcord += 1
         ElseIf _direction = 1 Then
-            _RXcord -= 1
+            _RXcord += 1
         ElseIf _direction = 2 Then
             _RYcord -= 1
         ElseIf _direction = 3 Then
-            _RXcord += 1
+            _RXcord -= 1
         End If
     End Sub
 
@@ -50,6 +68,11 @@
     Public Function GetY() As Integer
         Return _RYcord
     End Function
+
+    Public Function GetDirection() As Char
+        Return directionDictionary.Item(_direction)
+    End Function
+
 
     ' Method to check if it's the robot's first move
     Public Function IsFirstMove() As Boolean

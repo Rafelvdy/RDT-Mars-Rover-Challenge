@@ -3,7 +3,7 @@
     ' Protected variables for grid dimensions
     Protected Property _xcord As Integer ' The x-coordinate to which the grid should extend
     Protected Property _ycord As Integer ' The y-coordinate to which the grid should extend
-    Protected grid(,) As String ' Two-dimensional array to represent the grid
+    Public grid(,) As String ' Two-dimensional array to represent the grid
 
     ' Constructor to initialize a minimum plateau size if no input
     Public Sub New()
@@ -78,5 +78,15 @@
             Console.WriteLine() ' Move to the next line after each row
         Next
     End Sub
+
+    Public Function checkRoverPresent(ByVal x As Integer, ByVal y As Integer) As Boolean
+        If grid(x, y) = "|R|" Then
+            Return True
+        Else
+            Return False
+        End If
+
+
+    End Function
 
 End Class
