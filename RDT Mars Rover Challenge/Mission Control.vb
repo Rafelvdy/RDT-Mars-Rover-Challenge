@@ -9,6 +9,7 @@
         Me.Plateau = Plateau
     End Sub
 
+    '
     Public Property movementInput1 As String
         Set(value As String)
             _movementInput1 = value
@@ -49,6 +50,7 @@
                     Plateau.SetCell(currentX, currentY, "|P|")
                     myRobot.SetFirstMove(False) ' Set the flag to False after the first move
                 Else
+                    'This will stop a P being left after every movement as the IsFirstMove will no longer be flagged as true 
                     Plateau.SetCell(currentX, currentY, "| |")
                 End If
 
@@ -56,7 +58,8 @@
                 Plateau.SetCell(myRobot.GetX(), myRobot.GetY(), "|R|")
                 Plateau.DisplayGrid()
             Else
-                Console.WriteLine("Invalid Input")
+                'Something went wrong with the input, so the user needs to be notified
+                Console.WriteLine("Hmm, that input didn't look right. Stick to 'R', 'L' or 'M'")
             End If
         Next
 
@@ -92,7 +95,7 @@
                 Plateau.SetCell(myRobot.GetX(), myRobot.GetY(), "|R|")
                 Plateau.DisplayGrid()
             Else
-                Console.WriteLine("Invalid Input")
+                Console.WriteLine("Hmm, that input didn't look right. Stick to 'R', 'L' or 'M'")
             End If
         Next
     End Sub

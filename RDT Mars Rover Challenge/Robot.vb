@@ -11,6 +11,7 @@
         Me._RXcord = xcord
         Me._RYcord = ycord
         Me._direction = direction
+        'Acting as my compass so that when displaying direction it can be displayed as a letter
         directionDictionary.Add(0, "N")
         directionDictionary.Add(1, "E")
         directionDictionary.Add(2, "S")
@@ -36,6 +37,7 @@
 
     Public Sub turnRight()
         ' Simulates the robot turning right, wrapping the number back to 0 so that it goes back to north after west
+        'Imagine placing the numbers at the directions and the robot spinning, it has to loop back round
         _direction = (_direction + 1) Mod 4
     End Sub
 
@@ -74,12 +76,13 @@
     End Function
 
 
-    ' Method to check if it's the robot's first move
+    ' Method checking it the rover is on its first move or if it has already moved more then onc 
     Public Function IsFirstMove() As Boolean
         Return _isFirstMove
     End Function
 
-    ' Method to set the flag after the first move
+    ' Method will flag the rover as first move aslong as the move is the first move
+    ' If not here, will Leave a P after every move
     Public Sub SetFirstMove(value As Boolean)
         _isFirstMove = value
     End Sub

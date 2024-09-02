@@ -1,8 +1,8 @@
 ﻿Public Class Plateau
 
     ' Protected variables for grid dimensions
-    Protected Property _xcord As Integer ' The x-coordinate to which the grid should extend
-    Protected Property _ycord As Integer ' The y-coordinate to which the grid should extend
+    Protected Property _xcord As Integer ' The x-coordinate to which the grid should extendn and will create my horizontal boundary
+    Protected Property _ycord As Integer ' The y-coordinate to which the grid should extend and will create my vertical boundary
     Public grid(,) As String ' Two-dimensional array to represent the grid
 
     ' Constructor to initialize a minimum plateau size if no input
@@ -35,7 +35,7 @@
         End Set
     End Property
 
-    ' Method to resize the grid based on the current coordinates
+    ' This method will resize the grid when it is needed, however it might need optimizing as could create a performance issue
     Private Sub ResizeGrid()
         ' Resize the grid to be large enough to accommodate the given coordinates
         ReDim grid(_ycord, _xcord)
@@ -53,15 +53,30 @@
 
     ' Method to set a specific cell in the grid
     Public Sub SetCell(ByVal xcord As Integer, ByVal ycord As Integer, value As String)
-        If xcord >= 0 And ycord >= 0 And xcord <= _xcord And ycord <= _ycord Then
+        'If problems arise from multiple rovers, it will most likely be fixed in here
+        If checkRoverPresent(xcord, ycord) = True Then
+            InitialiseGrid()
+            Console.WriteLine()
+            Console.WriteLine("Whoops! There's already a rover here. Let's backtrack and try again.")
+            Console.WriteLine("Press enter to continue...")
+            Console.ReadLine()
+            Module1.GetRobot1Properties()
+
+        ElseIf xcord >= 0 And ycord >= 0 And xcord <= _xcord And ycord <= _ycord Then
             grid(ycord, xcord) = value
         Else
-            Console.WriteLine("Invalid coordinates!")
+            InitialiseGrid()
+            Console.WriteLine()
+            Console.WriteLine("Those coordinates are out of bounds. Let's try something within the grid! Please restart.")
+            Console.WriteLine("Press enter to continue...")
+            Console.ReadLine()
+            Module1.GetRobot1Properties()
         End If
     End Sub
 
     ' Method to display the grid in the console
     Public Sub DisplayGrid()
+        'Painting the grid from the top
         ' Display the X coordinates along the top
         Console.Write("   ") ' Offset for Y coordinate column
         For j As Integer = 0 To _xcord
